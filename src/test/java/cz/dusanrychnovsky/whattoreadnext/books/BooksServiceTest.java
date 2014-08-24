@@ -16,9 +16,9 @@ public class BooksServiceTest {
 		Collection<Book> books = booksService.find();
 		Book book = books.iterator().next();
 		
-		Long bookId = book.getId();
+		int bookId = book.getId();
 		Book result = booksService.find(bookId);
 		
-		assertEquals(bookId, (Long) result.getId());
+		assertEquals(bookId, result.getId());
 	}
 }

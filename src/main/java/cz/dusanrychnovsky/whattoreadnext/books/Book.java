@@ -10,27 +10,43 @@ import cz.dusanrychnovsky.whattoreadnext.authors.Author;
  */
 public class Book {
 
-    private final int id;
+    private int id;
     private final Author author;
     private final String title;
     
     /**
      * 
-     * @param id
      * @param author
      * @param title
      */
 	public Book(final int id, final Author author, final String title) {
+		this(author, title);
 		this.id = id;
+	}
+	
+	/**
+	 * 
+	 * @param author
+	 * @param title
+	 */
+	public Book(final Author author, final String title) {
 		this.author = author;
 		this.title = title;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	

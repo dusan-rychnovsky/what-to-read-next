@@ -16,7 +16,7 @@ public class BookNotFoundException extends EntityNotFoundException {
 	 * 
 	 * @param bookId
 	 */
-	public BookNotFoundException(final Long bookId) {
+	public BookNotFoundException(final int bookId) {
 		super("Book not found for ID ["+ bookId + "].");
 	}
 }

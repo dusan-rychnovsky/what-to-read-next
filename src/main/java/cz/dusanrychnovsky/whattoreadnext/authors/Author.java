@@ -8,7 +8,7 @@ package cz.dusanrychnovsky.whattoreadnext.authors;
  */
 public class Author {
 	
-	private final int id;
+	private int id;
 	private final String firstname;
 	private final String surname;
 	
@@ -19,9 +19,26 @@ public class Author {
 	 * @param surname
 	 */
 	public Author(final int id, final String firstname, final String surname) {
+		this(firstname, surname);
 		this.id = id;
+	}
+	
+	/**
+	 * 
+	 * @param firstname
+	 * @param surname
+	 */
+	public Author(final String firstname, final String surname) {
 		this.firstname = firstname;
 		this.surname = surname;
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	/**
