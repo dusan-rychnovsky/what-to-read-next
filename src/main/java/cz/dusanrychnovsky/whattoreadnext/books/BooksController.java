@@ -1,17 +1,14 @@
 package cz.dusanrychnovsky.whattoreadnext.books;
 
-import java.util.Collection;
+import cz.dusanrychnovsky.whattoreadnext.authors.AuthorNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import cz.dusanrychnovsky.whattoreadnext.authors.Author;
-import cz.dusanrychnovsky.whattoreadnext.authors.AuthorNotFoundException;
-import cz.dusanrychnovsky.whattoreadnext.authors.AuthorsRepository;
+import java.util.Collection;
 
 /**
  * 
@@ -23,20 +20,14 @@ import cz.dusanrychnovsky.whattoreadnext.authors.AuthorsRepository;
 public class BooksController {
 	
 	private final BooksRepository booksRepository;
-	private final AuthorsRepository authorsRepository;
 	
 	/**
 	 * 
 	 * @param booksRepository
-	 * @param authorsRepository
 	 */
 	@Autowired
-	public BooksController(
-		final BooksRepository booksRepository, 
-		final AuthorsRepository authorsRepository) {
-		
+	public BooksController(final BooksRepository booksRepository) {
 		this.booksRepository = booksRepository;
-		this.authorsRepository = authorsRepository;
 	}
 	
 	/**
@@ -45,7 +36,7 @@ public class BooksController {
 	 * @return
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	public Collection<Book> getBooks() {
+	public Collection<BookLite> getBooks() {
 		return booksRepository.find();
 	}
 
@@ -53,22 +44,6 @@ public class BooksController {
     public int addBook(@RequestBody final BookRequest request)
     	throws AuthorNotFoundException {
     	
-    	Author author = authorsRepository.find(request.getAuthorId());
-    	Book book = new Book(author, request.getTitle());
-    	
-    	return booksRepository.add(book);
-    }
-    
-	/**
-	 * Returns a book corresponding to the given ID. Throws an exception
-	 * if such a book does not exist.
-	 * 
-	 * @param bookId
-	 * @return
-	 * @throws BookNotFoundException
-	 */
-    @RequestMapping(value="/{bookId}", method=RequestMethod.GET)
-    public Book getBook(@PathVariable(value="bookId") final int bookId) throws BookNotFoundException {
-        return booksRepository.find(bookId);
+    	return booksRepository.add(request);
     }
 }

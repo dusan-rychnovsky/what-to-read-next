@@ -10,27 +10,27 @@ public class Author {
 	
 	private int id;
 	private final String firstname;
-	private final String surname;
+	private final String lastname;
 	
 	/**
 	 * 
 	 * @param id
 	 * @param firstname
-	 * @param surname
+	 * @param lastname
 	 */
-	public Author(final int id, final String firstname, final String surname) {
-		this(firstname, surname);
+	public Author(final int id, final String firstname, final String lastname) {
+		this(firstname, lastname);
 		this.id = id;
 	}
 	
 	/**
 	 * 
 	 * @param firstname
-	 * @param surname
+	 * @param lastname
 	 */
-	public Author(final String firstname, final String surname) {
+	public Author(final String firstname, final String lastname) {
 		this.firstname = firstname;
-		this.surname = surname;
+		this.lastname = lastname;
 	}
 	
 	/**
@@ -62,12 +62,12 @@ public class Author {
 	 * 
 	 * @return
 	 */
-	public String getSurname() {
-		return surname;
+	public String getLastname() {
+		return lastname;
 	}
 	
 	@Override
 	public String toString() {
-		return "AUTHOR [" + id + ", " + firstname + ", " + surname + "]";
+		return "AUTHOR [" + id + ", " + firstname + ", " + lastname + "]";
 	}
 }

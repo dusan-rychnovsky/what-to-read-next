@@ -1,16 +1,23 @@
 package cz.dusanrychnovsky.whattoreadnext;
 
-import java.util.Random;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-public abstract class Repository {
-
-	private Random rand = new Random();
+public abstract class Repository {    
+    
+	private final JdbcTemplate jdbcTemplate;
 	
 	/**
 	 * 
-	 * @return
+	 * @param jdbcTemplate
 	 */
-	protected int newId() {
-		return Math.abs(rand.nextInt());
+	public Repository(final JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	/**
+	 * 
+	 */
+	protected JdbcTemplate getTemplate() {
+		return jdbcTemplate;
 	}
 }
