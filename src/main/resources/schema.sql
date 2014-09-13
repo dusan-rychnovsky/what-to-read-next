@@ -1,3 +1,5 @@
+SET IGNORECASE TRUE;
+
 CREATE TABLE Authors (
 	authorId INT NOT NULL IDENTITY,
 	firstname VARCHAR(255),

@@ -46,4 +46,9 @@ public class BooksController {
     	
     	return booksRepository.add(request);
     }
+    
+    @RequestMapping(value="/search", method=RequestMethod.POST, consumes="application/json")
+    public Collection<BookLite> doSearch(@RequestBody final SearchCriteria criteria) {
+    	return booksRepository.find(criteria);
+    }
 }

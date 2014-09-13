@@ -86,13 +86,15 @@ public class BooksRepository extends Repository {
 		}
 	};
 	
-	@Autowired
-	public BooksRepository(final JdbcTemplate jdbcTemplate) {
-		super(jdbcTemplate);
-	}
+	private final SearchQueryBuilder searchQueryBuilder;
 	
-	public List<BookLite> search(final SearchCriteria criteria) {
-		return new ArrayList<BookLite>();
+	@Autowired
+	public BooksRepository(
+		final JdbcTemplate jdbcTemplate, 
+		final SearchQueryBuilder searchQueryBuilder) {
+		
+		super(jdbcTemplate);
+		this.searchQueryBuilder = searchQueryBuilder;
 	}
 	
 	/**
@@ -105,7 +107,23 @@ public class BooksRepository extends Repository {
 			bookLiteExtractor
 		);
 	}
+	
+	/**
+	 * 
+	 * @param criteria
+	 * @return
+	 */
+	public Collection<BookLite> find(final SearchCriteria criteria) {
+
+		// TODO: will this cause race conditions?
+		searchQueryBuilder.clear().addKeywords(criteria.getKeywords());
 		
+		final String query = searchQueryBuilder.buildQuery();
+		final Object[] params = searchQueryBuilder.buildParams();
+		
+		return getTemplate().query(query, params, bookLiteExtractor);
+	}
+	
 	/**
 	 * 
 	 * @param request
