@@ -1,3 +1,7 @@
+---
+--- ANDRZEJ SAPKOWSKI                                                        
+---
+
 INSERT INTO Authors (firstname, lastname)
 VALUES ('Andrzej', 'Sapkowski');
 
@@ -25,4 +29,96 @@ INSERT INTO Authorship (authorId, bookId)
 VALUES (
 	(SELECT authorId FROM Authors WHERE lastname = 'Sapkowski'),
 	(SELECT bookId FROM Books WHERE title = 'Zaklínač II: Meč osudu')
+);
+
+---
+--- JOHN TOLKIEN
+---
+
+INSERT INTO Authors (firstname, lastname)
+VALUES ('John', 'Tolkien');
+
+INSERT INTO Books (title, description, imageUrl)
+VALUES (
+	'Hobit',
+	'Toto je příběh o tom, kterak se Pytlík vydal za dobrodružstvím a shledal, že náhle dělá a říká naprosto neočekávané věci… Bilbo Pytlík je hobit, který se těší z pohodlnéh a skromného života a jen zřídkakdy putuje dále než do své spižírny ve Dně pytle. Jeho spokojené bytí je však narušeno, když se jednoho dne u jeho prahu objeví čaroděj Gandalf v doprovodu třinácti trpaslíků a vezmou ho s sebou na cestu "tam a zase zpátky". Mají v úmyslu uloupit poklad mocného Šmaka, velikého a velmi nebezpečného draka...',
+	'http://obalky.kosmas.cz/ArticleCovers/175421_big.jpg'
+);
+
+INSERT INTO Authorship (authorId, bookId)
+VALUES (
+	(SELECT authorId FROM Authors WHERE lastname = 'Tolkien'),
+	(SELECT bookId FROM Books WHERE title = 'Hobit')
+);
+
+INSERT INTO Books (title, description, imageUrl)
+VALUES (
+	'Pán prstenů I - Společenstvo prstenu',
+	'V dávných dobách vykovali elfští kováři prsteny moci, netušili však, že Temný pán Sauron dal vyrobit ještě Jeden prsten, který měl vládnout všem. Spojené armády lidí a elfů nakonec Saurona porazily a prsten mu odňaly, tato magická věc se však ztratila, aby po mnoha letech padla do rukou Bilba Pytlíka. Trilogie Pán prstenů vypráví o nebezpečné cestě Bilbova příbuzného Froda, který musí opustit ospalou vesničku Hobitín v Kraji a vydat se na nebezpečnou cestu přes celou Středozem k Puklinám osudu, aby zničil Prsten, a zmařil tak Sauronovy temné plány.',
+	'http://obalky.kosmas.cz/ArticleCovers/129856_big.jpg'
+);
+
+INSERT INTO Authorship (authorId, bookId)
+VALUES (
+	(SELECT authorId FROM Authors WHERE lastname = 'Tolkien'),
+	(SELECT bookId FROM Books WHERE title = 'Pán prstenů I - Společenstvo prstenu')
+);
+
+INSERT INTO Books (title, description, imageUrl)
+VALUES (
+	'Pán prstenů II - Dvě věže',
+	'V dávných dobách vykovali elfští kováři prsteny moci, netušili však, že Temný pán Sauron dal vyrobit ještě Jeden prsten, který měl vládnout všem. Spojené armády lidí a elfů nakonec Saurona porazily a prsten mu odňaly, tato magická věc se však ztratila, aby po mnoha letech padla do rukou Bilba Pytlíka. Trilogie Pán prstenů vypráví o nebezpečné cestě Bilbova příbuzného Froda, který musí opustit ospalou vesničku Hobitín v Kraji a vydat se na nebezpečnou cestu přes celou Středozem k Puklinám osudu, aby zničil Prsten, a zmařil tak Sauronovy temné plány.',
+	'http://obalky.kosmas.cz/ArticleCovers/130372_big.jpg'
+);
+
+INSERT INTO Authorship (authorId, bookId)
+VALUES (
+	(SELECT authorId FROM Authors WHERE lastname = 'Tolkien'),
+	(SELECT bookId FROM Books WHERE title = 'Pán prstenů II - Dvě věže')
+);
+
+INSERT INTO Books (title, description, imageUrl)
+VALUES (
+	'Pán prstenů III - Návrat krále',
+	'V dávných dobách vykovali elfští kováři prsteny moci, netušili však, že Temný pán Sauron dal vyrobit ještě Jeden prsten, který měl vládnout všem. Spojené armády lidí a elfů nakonec Saurona porazily a prsten mu odňaly, tato magická věc se však ztratila, aby po mnoha letech padla do rukou Bilba Pytlíka. Trilogie Pán prstenů vypráví o nebezpečné cestě Bilbova příbuzného Froda, který musí opustit ospalou vesničku Hobitín v Kraji a vydat se na nebezpečnou cestu přes celou Středozem k Puklinám osudu, aby zničil Prsten, a zmařil tak Sauronovy temné plány.',
+	'http://obalky.kosmas.cz/ArticleCovers/134791_big.jpg'
+);
+
+INSERT INTO Authorship (authorId, bookId)
+VALUES (
+	(SELECT authorId FROM Authors WHERE lastname = 'Tolkien'),
+	(SELECT bookId FROM Books WHERE title = 'Pán prstenů III - Návrat krále')
+);
+
+---
+--- GOODKIND TERRY
+---
+
+INSERT INTO Authors (firstname, lastname)
+VALUES ('Terry', 'Goodkind');
+
+INSERT INTO Books (title, description, imageUrl)
+VALUES (
+	'Meč pravdy I - První čarodějovo pravidlo',
+	'První čarodějovo pravidlo je román vynikajícího spisovatele fantasy. Příběh Richarda Cyphera předurčeného bojovat s protivníkem nejsilnějším – tím je Darken Rahl, zlověstný mág, který si přeje zničit všechno, co Richard považuje za dobré a krásné, a odsoudit jej spolu s ostatními obyvateli Západozemí k životu v pekle zotročení a ponížení. Richardův život se změní, když zachrání Kahlan, krásnou ženu, která zoufale prchá před Rahlovými úkladnými vrahy, když se pokouší najít Zedda, posledního velkého čaroděje. Pouze Zedd může vysvětit hledače pravdy, člověka s čistým srdcem a silnou vůlí, který bude muset vládnout strašlivou mocí, legendárního Meče pravdy....',
+	'http://img.databazeknih.cz/images_books/70_/70146/prvni-carodejovo-pravidlo-70146.jpg'
+);
+
+INSERT INTO Authorship (authorId, bookId)
+VALUES (
+	(SELECT authorId FROM Authors WHERE lastname = 'Goodkind'),
+	(SELECT bookId FROM Books WHERE title = 'Meč pravdy I - První čarodějovo pravidlo')
+);
+
+INSERT INTO Books (title, description, imageUrl)
+VALUES (
+	'Meč pravdy II - Kámen slz',
+	'Richardovi Cypherovi, který porazil zlého mága Darkena Rahla, není dopřáno odpočinku. Ovládá magii, ale pouze sestry světla jej dokážou naučit poznat vlastní talent, aby mohl bojovat proti temným silám. Putuje za sestrami do starobylého Paláce proroků ve vzdálené zemi Starého světa, aby rozvinul svoji sílu a odhalil temné tajemství vlastního původu. Kahlan, poslední matka zpovědnice, vede vojska Středozemí do bitvy na život a na smrt proti Rahlově armádě démonů. Mágova msta vyprovokovala krvavou válku. Kahlan nedokáže zastavit vraždění. Poslední naději skýtá Aydindril, sídlo čarodějů. Právě do něho musí dorazit Zedd, který je posledním ze skutečných mágů, aby vyvolal mocné síly k záchraně všech zemí.',
+	'http://obalky.kosmas.cz/ArticleCovers/162756_big.jpg'
+);
+
+INSERT INTO Authorship (authorId, bookId)
+VALUES (
+	(SELECT authorId FROM Authors WHERE lastname = 'Goodkind'),
+	(SELECT bookId FROM Books WHERE title = 'Meč pravdy II - Kámen slz')
 );
