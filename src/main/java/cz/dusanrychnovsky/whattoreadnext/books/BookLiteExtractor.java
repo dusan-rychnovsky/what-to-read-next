@@ -8,9 +8,11 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Component;
 
 import cz.dusanrychnovsky.whattoreadnext.authors.AuthorLite;
 
+@Component
 public class BookLiteExtractor implements ResultSetExtractor<Collection<BookLite>> {
 
 	@Override

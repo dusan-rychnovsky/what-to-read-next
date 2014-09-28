@@ -35,19 +35,26 @@ import cz.dusanrychnovsky.whattoreadnext.authors.AuthorNotFoundException;
 @Service
 public class BooksRepository extends Repository {
 	
-	private final BookLiteExtractor bookLiteExtractor = new BookLiteExtractor();
-	private final BookRowMapper bookRowMapper = new BookRowMapper();
-	private final AuthorLiteRowMapper authorLiteRowMapper = new AuthorLiteRowMapper();
+	private final BookLiteExtractor bookLiteExtractor;
+	private final BookRowMapper bookRowMapper;
+	private final AuthorLiteRowMapper authorLiteRowMapper;
 	
 	private final SearchQueryBuilder searchQueryBuilder;
 	
 	@Autowired
 	public BooksRepository(
 		final JdbcTemplate jdbcTemplate, 
-		final SearchQueryBuilder searchQueryBuilder) {
+		final SearchQueryBuilder searchQueryBuilder,
+		final BookLiteExtractor bookLiteExtractor,
+		final BookRowMapper bookRowMapper,
+		final AuthorLiteRowMapper authorLiteRowMapper) {
 		
 		super(jdbcTemplate);
 		this.searchQueryBuilder = searchQueryBuilder;
+		
+		this.bookLiteExtractor = bookLiteExtractor;
+		this.bookRowMapper = bookRowMapper;
+		this.authorLiteRowMapper = authorLiteRowMapper;
 	}
 	
 	/**
