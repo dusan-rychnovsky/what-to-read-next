@@ -40,15 +40,15 @@ public class BooksController {
 		return booksRepository.find();
 	}
 
+    @RequestMapping(value="/search", method=RequestMethod.POST, consumes="application/json")
+    public Collection<BookLite> doSearch(@RequestBody final SearchCriteria criteria) {
+    	return booksRepository.find(criteria);
+    }
+    
     @RequestMapping(method=RequestMethod.POST, consumes="application/json")
     public int addBook(@RequestBody final BookRequest request)
     	throws AuthorNotFoundException {
     	
     	return booksRepository.add(request);
-    }
-    
-    @RequestMapping(value="/search", method=RequestMethod.POST, consumes="application/json")
-    public Collection<BookLite> doSearch(@RequestBody final SearchCriteria criteria) {
-    	return booksRepository.find(criteria);
     }
 }
