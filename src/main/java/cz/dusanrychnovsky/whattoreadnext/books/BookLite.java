@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BookLite {
 	
-	private int id;
+	private final int id;
 	private final List<AuthorLite> authors;
 	private final String title;
 	private final String description;
@@ -52,14 +52,6 @@ public class BookLite {
 	 */
 	public int getId() {
 		return id;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public void setId(final int id) {
-		this.id = id;
 	}
 	
 	/**

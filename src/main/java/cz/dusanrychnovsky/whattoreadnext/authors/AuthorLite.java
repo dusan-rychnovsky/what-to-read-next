@@ -2,7 +2,7 @@ package cz.dusanrychnovsky.whattoreadnext.authors;
 
 public class AuthorLite {
 
-	private int id;
+	private final int id;
 	private final String firstname;
 	private final String lastname;
 	
@@ -24,14 +24,6 @@ public class AuthorLite {
 	 */
 	public int getId() {
 		return id;
-	}
-	
-	/**
-	 * 
-	 * @param id
-	 */
-	public void setId(final int id) {
-		this.id = id;
 	}
 
 	/**
