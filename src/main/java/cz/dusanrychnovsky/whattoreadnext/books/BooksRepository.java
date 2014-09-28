@@ -32,59 +32,8 @@ import cz.dusanrychnovsky.whattoreadnext.authors.AuthorNotFoundException;
 @Service
 public class BooksRepository extends Repository {
 	
-	private final ResultSetExtractor<Collection<BookLite>> bookLiteExtractor = 
-		new ResultSetExtractor<Collection<BookLite>>() {
-		
-		@Override
-		public Collection<BookLite> extractData(ResultSet rs) throws SQLException, DataAccessException {
-
-			final Map<Integer, BookLite> data = new HashMap<>();
-			while (rs.next()) {
-				
-				int bookId = rs.getInt("bookId");
-				if (!data.containsKey(bookId)) {
-					BookLite bookLite = createBookLite(rs);
-					data.put(bookId, bookLite);
-				}
-			
-				BookLite bookLite = data.get(bookId);
-				
-				AuthorLite authorLite = createAuthorLite(rs);
-				bookLite.addAuthor(authorLite);
-			}
-			
-			return data.values();
-		}
-		
-		/**
-		 * 
-		 * @param rs
-		 * @return
-		 * @throws SQLException
-		 */
-		private AuthorLite createAuthorLite(final ResultSet rs) throws SQLException {
-			return new AuthorLite(
-				rs.getInt("authorId"),
-				rs.getString("firstname"),
-				rs.getString("lastname")
-			);
-		}
-
-		/**
-		 * 
-		 * @param rs
-		 * @return
-		 * @throws SQLException
-		 */
-		private BookLite createBookLite(final ResultSet rs) throws SQLException {
-			return new BookLite(
-				rs.getInt("bookId"),
-				rs.getString("title"),
-				rs.getString("description"),
-				rs.getString("imageUrl")
-			);
-		}
-	};
+	private final BookLiteExtractor bookLiteExtractor = new BookLiteExtractor();
+	private final BookExtractor bookExtractor = new BookExtractor();
 	
 	private final SearchQueryBuilder searchQueryBuilder;
 	
@@ -122,6 +71,35 @@ public class BooksRepository extends Repository {
 		final Object[] params = searchQueryBuilder.buildParams();
 		
 		return getTemplate().query(query, params, bookLiteExtractor);
+	}
+	
+	/**
+	 * 
+	 * @param bookId
+	 * @return
+	 * @throws BookNotFoundException 
+	 */
+	public Book find(int bookId) throws BookNotFoundException {
+		
+		Collection<Book> result = getTemplate().query(
+			"SELECT * " +
+			"FROM Books NATURAL JOIN Authorship NATURAL JOIN Authors " +
+			"WHERE bookId = ?",
+			new Object[] { bookId },
+			bookExtractor
+		);
+		
+		if (result.isEmpty()) {
+			throw new BookNotFoundException(bookId);
+		}
+		
+		if (result.size() > 1) {
+			throw new AssertionError(
+				"Find book by id returns more than one row."
+			);
+		}
+		
+		return result.iterator().next();
 	}
 	
 	/**

@@ -1,6 +1,10 @@
 package cz.dusanrychnovsky.whattoreadnext.books;
 
-import cz.dusanrychnovsky.whattoreadnext.authors.Author;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import cz.dusanrychnovsky.whattoreadnext.authors.AuthorLite;
 
 /**
  * Represents a book.
@@ -10,36 +14,41 @@ import cz.dusanrychnovsky.whattoreadnext.authors.Author;
  */
 public class Book {
 
-    private int id;
-    private final Author author;
-    private final String title;
+	private int id;
+	private final List<AuthorLite> authors;
+	private final String title;
+	private final String description;
+	private final String imageUrl;
     
-    /**
-     * 
-     * @param author
-     * @param title
-     */
-	public Book(final int id, final Author author, final String title) {
-		this(author, title);
+	/**
+	 * 
+	 * @param id
+	 * @param authors
+	 * @param title
+	 * @param description
+	 * @param imageUrl
+	 */
+	public Book(final int id, final List<AuthorLite> authors, final String title,
+		final String description, final String imageUrl) {
+		
 		this.id = id;
+		this.authors = new ArrayList<AuthorLite>(authors);
+		this.title = title;
+		this.description = description;
+		this.imageUrl = imageUrl;
 	}
 	
 	/**
 	 * 
-	 * @param author
-	 * @param title
-	 */
-	public Book(final Author author, final String title) {
-		this.author = author;
-		this.title = title;
-	}
-
-	/**
-	 * 
 	 * @param id
+	 * @param title
+	 * @param description
+	 * @param imageUrl
 	 */
-	public void setId(int id) {
-		this.id = id;
+	public Book(final int id, final String title, final String description,
+		final String imageUrl) {
+		
+		this(id, Collections.<AuthorLite>emptyList(), title, description, imageUrl);
 	}
 	
 	/**
@@ -49,13 +58,29 @@ public class Book {
 	public int getId() {
 		return id;
 	}
+
+	/**
+	 * 
+	 * @param id
+	 */
+	public void setId(final int id) {
+		this.id = id;
+	}
+	
+	/**
+	 * 
+	 * @param author
+	 */
+	public void addAuthor(final AuthorLite author) {
+		authors.add(author);
+	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public Author getAuthor() {
-		return author;
+	public List<AuthorLite> getAuthors() {
+		return Collections.unmodifiableList(authors);
 	}
 	
 	/**
@@ -66,8 +91,19 @@ public class Book {
 		return title;
 	}
 	
-	@Override
-	public String toString() {
-		return "BOOK [" + id + ", " + author + ", " + title + "]";
+	/**
+	 * 
+	 * @return
+	 */
+	public String getDescription() {
+		return description;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getImageUrl() {
+		return imageUrl;
 	}
 }
