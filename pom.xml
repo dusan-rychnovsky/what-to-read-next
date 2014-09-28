@@ -70,6 +70,14 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+			<plugin>
+				<groupId>com.smartbear.soapui</groupId>
+				<artifactId>soapui-maven-plugin</artifactId>
+				<version>4.6.1</version>
+				<configuration>
+					<projectFile>soap-ui/What-To-Read-Next-soapui-project.xml</projectFile>
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 
@@ -80,12 +88,17 @@
             <url>http://repo.spring.io/libs-release</url>
         </repository>
     </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <id>spring-releases</id>
             <name>Spring Releases</name>
             <url>http://repo.spring.io/libs-release</url>
         </pluginRepository>
+		<pluginRepository>
+			<id>smartbear-sweden-plugin-repository</id>
+			<url>http://www.soapui.org/repository/maven2/</url>
+		</pluginRepository>
     </pluginRepositories>
 
 </project>
