@@ -39,18 +39,14 @@ public class BooksRepository extends Repository {
 	private final BookRowMapper bookRowMapper;
 	private final AuthorLiteRowMapper authorLiteRowMapper;
 	
-	private final SearchQueryBuilder searchQueryBuilder;
-	
 	@Autowired
 	public BooksRepository(
 		final JdbcTemplate jdbcTemplate, 
-		final SearchQueryBuilder searchQueryBuilder,
 		final BookLiteExtractor bookLiteExtractor,
 		final BookRowMapper bookRowMapper,
 		final AuthorLiteRowMapper authorLiteRowMapper) {
 		
 		super(jdbcTemplate);
-		this.searchQueryBuilder = searchQueryBuilder;
 		
 		this.bookLiteExtractor = bookLiteExtractor;
 		this.bookRowMapper = bookRowMapper;
@@ -75,7 +71,7 @@ public class BooksRepository extends Repository {
 	 */
 	public Collection<BookLite> find(final SearchCriteria criteria) {
 
-		// TODO: will this cause race conditions?
+		SearchQueryBuilder searchQueryBuilder = new SearchQueryBuilder();
 		searchQueryBuilder.clear().addKeywords(criteria.getKeywords());
 		
 		final String query = searchQueryBuilder.buildQuery();
