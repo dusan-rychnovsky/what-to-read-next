@@ -17,3 +17,23 @@ CREATE TABLE Authorship (
 	authorId INT NOT NULL,
 	bookId INT NOT NULL
 );
+
+CREATE TABLE Reviews (
+	bookId INT NOT NULL,
+	opinionId INT NOT NULL
+);
+
+CREATE TABLE Opinions (
+	opinionId INT NOT NULL IDENTITY,
+	opinion VARCHAR(255)
+);
+
+INSERT INTO Opinions (opinion)
+VALUES ('LIKE');
+
+
+INSERT INTO Opinions (opinion)
+VALUES ('DISLIKE');
+
+INSERT INTO Opinions (opinion)
+VALUES ('NEUTRAL');

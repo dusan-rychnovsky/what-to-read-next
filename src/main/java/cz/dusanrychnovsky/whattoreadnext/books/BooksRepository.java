@@ -1,6 +1,7 @@
 package cz.dusanrychnovsky.whattoreadnext.books;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,6 +27,7 @@ import cz.dusanrychnovsky.whattoreadnext.Repository;
 import cz.dusanrychnovsky.whattoreadnext.authors.AuthorLite;
 import cz.dusanrychnovsky.whattoreadnext.authors.AuthorLiteRowMapper;
 import cz.dusanrychnovsky.whattoreadnext.authors.AuthorNotFoundException;
+import cz.dusanrychnovsky.whattoreadnext.ratings.Opinion;
 
 /**
  * 
@@ -92,7 +94,8 @@ public class BooksRepository extends Repository {
 		
 		try {
 			book = getTemplate().queryForObject(
-				"SELECT * FROM Books WHERE bookId = ?",
+				"SELECT * FROM Reviews NATURAL JOIN Opinions NATURAL RIGHT OUTER JOIN Books " +
+				"WHERE bookId = ?",
 				new Object[] { bookId },
 				bookRowMapper
 			);
@@ -152,5 +155,39 @@ public class BooksRepository extends Repository {
 		}
 		
 		return bookId;
+	}
+
+	public void setOpinion(final int bookId, final Opinion opinion)
+		throws BookNotFoundException {
+		
+		if (!bookExists(bookId)) {
+			throw new BookNotFoundException(bookId);
+		}
+		
+		getTemplate().update(
+			"MERGE INTO Reviews AS R " +
+			"USING (VALUES ?) AS Val(bookId) " +
+			"ON (R.bookId = Val.bookId) " +
+			"WHEN MATCHED THEN UPDATE SET R.opinionId = (SELECT opinionId FROM Opinions WHERE opinion = ?) " +
+			"WHEN NOT MATCHED THEN INSERT (bookId, opinionId) VALUES (?, (SELECT opinionId FROM Opinions WHERE opinion = ?))",
+			new Object[] { bookId, opinion.name(), bookId, opinion.name() }
+		);
+	}
+	
+	private boolean bookExists(final int bookId) {
+		
+		final int count = getTemplate().queryForObject(
+			"SELECT COUNT(*) FROM Books WHERE bookId = ?",
+			new Object[] { bookId },
+			Integer.class
+		);
+		
+		if (count > 1) {
+			throw new AssertionError(
+				"Find book by id returns more than one row."
+			);
+		}
+		
+		return (count != 0);
 	}
 }

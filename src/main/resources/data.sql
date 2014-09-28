@@ -18,6 +18,12 @@ VALUES (
 	(SELECT bookId FROM Books WHERE title = 'Zaklínač I: Poslední přání')
 );
 
+INSERT INTO Reviews (bookId, opinionId)
+VALUES (
+	(SELECT bookId FROM Books WHERE title = 'Zaklínač I: Poslední přání'),
+	(SELECT opinionId FROM Opinions WHERE opinion = 'LIKE')
+);
+
 INSERT INTO Books (title, description, imageUrl)
 VALUES (
 	'Zaklínač II: Meč osudu',

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import cz.dusanrychnovsky.whattoreadnext.authors.AuthorLite;
+import cz.dusanrychnovsky.whattoreadnext.ratings.Opinion;
 
 /**
  * Represents a book.
@@ -20,6 +21,7 @@ public class Book {
 	private final String title;
 	private final String description;
 	private final String imageUrl;
+	private Opinion opinion = Opinion.NEUTRAL;
     
 	/**
 	 * 
@@ -49,7 +51,13 @@ public class Book {
 	public Book(final int id, final String title, final String description,
 		final String imageUrl) {
 		
-		this(id, Collections.<AuthorLite>emptyList(), title, description, imageUrl);
+		this(
+			id,
+			Collections.<AuthorLite>emptyList(),
+			title,
+			description,
+			imageUrl
+		);
 	}
 	
 	/**
@@ -108,5 +116,21 @@ public class Book {
 	 */
 	public String getImageUrl() {
 		return imageUrl;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Opinion getOpinion() {
+		return opinion;
+	}
+	
+	/**
+	 * 
+	 * @param opinion
+	 */
+	public void setOpinion(final Opinion opinion) {
+		this.opinion = opinion;
 	}
 }

@@ -50,7 +50,7 @@
 			<artifactId>scala-library</artifactId>
 			<version>2.10.4</version>
 		</dependency>
-    </dependencies>
+	</dependencies>
 
     <properties>
         <start-class>cz.dusanrychnovsky.whattoreadnext.Application</start-class>
