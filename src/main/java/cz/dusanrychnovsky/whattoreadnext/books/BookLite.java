@@ -3,6 +3,7 @@ package cz.dusanrychnovsky.whattoreadnext.books;
 import cz.dusanrychnovsky.whattoreadnext.authors.AuthorLite;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -75,6 +76,16 @@ public class BookLite {
 	 */
 	public List<AuthorLite> getAuthors() {
 		return Collections.unmodifiableList(authors);
+	}
+	
+	/**
+	 * 
+	 * @param authors
+	 */
+	public void setAuthors(Collection<AuthorLite> authors) {
+		for (AuthorLite author : authors) {
+			addAuthor(author);
+		}
 	}
 	
 	/**

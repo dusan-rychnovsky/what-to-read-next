@@ -13,6 +13,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -20,8 +21,10 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
+import scala.annotation.meta.setter;
 import cz.dusanrychnovsky.whattoreadnext.Repository;
 import cz.dusanrychnovsky.whattoreadnext.authors.AuthorLite;
+import cz.dusanrychnovsky.whattoreadnext.authors.AuthorLiteRowMapper;
 import cz.dusanrychnovsky.whattoreadnext.authors.AuthorNotFoundException;
 
 /**
@@ -33,7 +36,8 @@ import cz.dusanrychnovsky.whattoreadnext.authors.AuthorNotFoundException;
 public class BooksRepository extends Repository {
 	
 	private final BookLiteExtractor bookLiteExtractor = new BookLiteExtractor();
-	private final BookExtractor bookExtractor = new BookExtractor();
+	private final BookRowMapper bookRowMapper = new BookRowMapper();
+	private final AuthorLiteRowMapper authorLiteRowMapper = new AuthorLiteRowMapper();
 	
 	private final SearchQueryBuilder searchQueryBuilder;
 	
@@ -81,25 +85,28 @@ public class BooksRepository extends Repository {
 	 */
 	public Book find(int bookId) throws BookNotFoundException {
 		
-		Collection<Book> result = getTemplate().query(
-			"SELECT * " +
-			"FROM Books NATURAL JOIN Authorship NATURAL JOIN Authors " +
-			"WHERE bookId = ?",
-			new Object[] { bookId },
-			bookExtractor
-		);
+		Book book;
 		
-		if (result.isEmpty()) {
+		try {
+			book = getTemplate().queryForObject(
+				"SELECT * FROM Books WHERE bookId = ?",
+				new Object[] { bookId },
+				bookRowMapper
+			);
+		}
+		catch (EmptyResultDataAccessException ex) {
 			throw new BookNotFoundException(bookId);
 		}
 		
-		if (result.size() > 1) {
-			throw new AssertionError(
-				"Find book by id returns more than one row."
-			);
-		}
+		Collection<AuthorLite> authors = getTemplate().query(
+			"SELECT * FROM Authorship NATURAL JOIN Authors WHERE bookId = ?",
+			new Object[] { bookId },
+			authorLiteRowMapper
+		); 
 		
-		return result.iterator().next();
+		book.setAuthors(authors);
+		
+		return book;
 	}
 	
 	/**

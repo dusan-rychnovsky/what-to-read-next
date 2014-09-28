@@ -1,6 +1,7 @@
 package cz.dusanrychnovsky.whattoreadnext.books;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -81,6 +82,16 @@ public class Book {
 	 */
 	public List<AuthorLite> getAuthors() {
 		return Collections.unmodifiableList(authors);
+	}
+	
+	/**
+	 * 
+	 * @param authors
+	 */
+	public void setAuthors(Collection<AuthorLite> authors) {
+		for (AuthorLite author : authors) {
+			addAuthor(author);
+		}
 	}
 	
 	/**
