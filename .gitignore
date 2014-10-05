@@ -1,9 +1,7 @@
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.next
-release.properties
+rest-api/.settings/
+rest-api/.classpath
+rest-api/.project
 
-.settings/
-.classpath
-.project
+rest-api/target/
+
+release.properties
