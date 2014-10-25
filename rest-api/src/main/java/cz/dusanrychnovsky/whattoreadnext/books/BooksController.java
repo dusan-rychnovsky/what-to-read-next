@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -34,21 +37,18 @@ public class BooksController {
 		this.booksRepository = booksRepository;
 	}
 	
-	/**
-	 * Returns the list of all registered books.
-	 * 
-	 * @return
-	 */
 	@RequestMapping(method=GET)
-	public Collection<BookLite> getBooks() {
-		return booksRepository.find();
+	public Collection<BookLite> getBooks(
+		@RequestParam(required = false) List<String> keywords) {
+		
+		if (keywords == null) {
+			keywords = new ArrayList<String>();
+		}
+		
+		SearchCriteria criteria = new SearchCriteria(keywords);
+		return booksRepository.find(criteria);
 	}
-
-    @RequestMapping(value="/search", method=POST, consumes="application/json")
-    public Collection<BookLite> doSearch(@RequestBody final SearchCriteria criteria) {
-    	return booksRepository.find(criteria);
-    }
-    
+	
     @RequestMapping(value="/{bookId}", method=GET)
     public Book getBook(@PathVariable("bookId") final int bookId)
     	throws BookNotFoundException {
