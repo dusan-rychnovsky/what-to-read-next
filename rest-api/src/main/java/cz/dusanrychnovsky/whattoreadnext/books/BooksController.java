@@ -38,7 +38,7 @@ public class BooksController {
 	}
 	
 	@RequestMapping(method=GET)
-	public Collection<BookLite> getBooks(
+	public Books getBooks(
 		@RequestParam(required = false) List<String> keywords) {
 		
 		if (keywords == null) {
@@ -46,7 +46,9 @@ public class BooksController {
 		}
 		
 		SearchCriteria criteria = new SearchCriteria(keywords);
-		return booksRepository.find(criteria);
+
+		Collection<BookLite> books = booksRepository.find(criteria);
+		return new Books(books);
 	}
 	
     @RequestMapping(value="/{bookId}", method=GET)

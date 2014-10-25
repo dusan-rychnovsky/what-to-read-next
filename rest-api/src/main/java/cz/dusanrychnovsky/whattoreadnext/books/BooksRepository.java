@@ -22,7 +22,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
-import scala.annotation.meta.setter;
 import cz.dusanrychnovsky.whattoreadnext.Repository;
 import cz.dusanrychnovsky.whattoreadnext.authors.AuthorLite;
 import cz.dusanrychnovsky.whattoreadnext.authors.AuthorLiteRowMapper;
