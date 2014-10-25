@@ -1,7 +1,7 @@
-rest-api/.settings/
-rest-api/.classpath
-rest-api/.project
+.settings/
+.classpath
+.project
 
-rest-api/target/
+target/
 
 release.properties
