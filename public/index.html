@@ -10,21 +10,20 @@
 			<header id="header">
 				<h1>What To Read Next?</h1>
 			</header>
-			<section id="main">
-				<ul id="books-list">
-					{{#each}}
-					<li>
-						<h2>{{title}}<h2>
-						<ul>
-							<li>Author</li>
-						</ul>
-						<p>
-							{{description}}
-						</p>
-						<img {{bind-attr src=imageUrl}} />
-					</li>
-					{{/each}}
-				</ul>
+			<section id="books-list">
+				{{#each}}
+				<div class="book">
+					<img {{bind-attr src=imageUrl}} />
+					<div class="title">{{title}}</div>
+					<ul>
+						<li class="author">Author</li>
+					</ul>
+					<p>
+						{{description}}
+					</p>
+					<div class="clear"></div>
+				</div>
+				{{/each}}
 			</section>
 		</script>
 		
