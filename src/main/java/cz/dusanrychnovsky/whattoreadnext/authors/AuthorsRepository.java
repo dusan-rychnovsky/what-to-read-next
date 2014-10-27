@@ -1,55 +1,46 @@
 package cz.dusanrychnovsky.whattoreadnext.authors;
 
 import cz.dusanrychnovsky.whattoreadnext.Repository;
+import cz.dusanrychnovsky.whattoreadnext.books.BookNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class AuthorsRepository extends Repository {
 	
-	private static final RowMapper<AuthorLite> authorLiteMapper = new RowMapper<AuthorLite>() {
-		@Override
-		public AuthorLite mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new AuthorLite(
-				rs.getInt("authorId"),
-				rs.getString("firstname"),
-				rs.getString("lastname")
-			);
-		}
-	};
+	private final AuthorExtractor authorExtractor;
 
 	@Autowired
-	public AuthorsRepository(final JdbcTemplate jdbcTemplate) {
+	public AuthorsRepository(
+		final JdbcTemplate jdbcTemplate,
+		final AuthorExtractor authorExtractor) {
+		
 		super(jdbcTemplate);
+		
+		this.authorExtractor = authorExtractor;
 	}
-	
+
 	/**
 	 * 
+	 * @param authorIds
 	 * @return
 	 */
-	public Collection<AuthorLite> find() {
-		return getTemplate().query("SELECT * FROM Authors", authorLiteMapper);
-	}
-	
-	/**
-	 * 
-	 * @param author
-	 * @return
-	 */
-	public int add(final Author author) {
-		/*
-		int id = newId();
-		author.setId(id);
-		authors.put(id, author);
-		return id;
-		*/
-		return 1;
+	public List<Author> find(List<Integer> authorIds) {
+		return getNamedParameterJdbcTemplate().query(
+			"SELECT * FROM Authors NATURAL JOIN Authorship WHERE authorId IN (:authorIds)",			
+			new MapSqlParameterSource("authorIds", authorIds),
+			authorExtractor
+		);
 	}
 }

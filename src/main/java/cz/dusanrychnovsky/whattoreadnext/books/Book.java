@@ -1,12 +1,10 @@
 package cz.dusanrychnovsky.whattoreadnext.books;
 
+import cz.dusanrychnovsky.whattoreadnext.ratings.Opinion;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import cz.dusanrychnovsky.whattoreadnext.authors.AuthorLite;
-import cz.dusanrychnovsky.whattoreadnext.ratings.Opinion;
 
 /**
  * Represents a book.
@@ -16,8 +14,8 @@ import cz.dusanrychnovsky.whattoreadnext.ratings.Opinion;
  */
 public class Book {
 
-	private final int id;
-	private final List<AuthorLite> authors;
+	private final Integer id;
+	private final List<Integer> authors;
 	private final String title;
 	private final String description;
 	private final String imageUrl;
@@ -31,11 +29,11 @@ public class Book {
 	 * @param description
 	 * @param imageUrl
 	 */
-	public Book(final int id, final List<AuthorLite> authors, final String title,
+	public Book(final int id, final List<Integer> authors, final String title,
 		final String description, final String imageUrl) {
 		
 		this.id = id;
-		this.authors = new ArrayList<AuthorLite>(authors);
+		this.authors = new ArrayList<Integer>(authors);
 		this.title = title;
 		this.description = description;
 		this.imageUrl = imageUrl;
@@ -53,7 +51,7 @@ public class Book {
 		
 		this(
 			id,
-			Collections.<AuthorLite>emptyList(),
+			Collections.<Integer>emptyList(),
 			title,
 			description,
 			imageUrl
@@ -70,28 +68,18 @@ public class Book {
 	
 	/**
 	 * 
-	 * @param author
+	 * @param authorId
 	 */
-	public void addAuthor(final AuthorLite author) {
-		authors.add(author);
+	public void addAuthor(final Integer authorId) {
+		authors.add(authorId);
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public List<AuthorLite> getAuthors() {
+	public List<Integer> getAuthors() {
 		return Collections.unmodifiableList(authors);
-	}
-	
-	/**
-	 * 
-	 * @param authors
-	 */
-	public void setAuthors(Collection<AuthorLite> authors) {
-		for (AuthorLite author : authors) {
-			addAuthor(author);
-		}
 	}
 	
 	/**

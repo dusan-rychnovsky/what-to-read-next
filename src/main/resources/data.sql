@@ -3,6 +3,9 @@
 ---
 
 INSERT INTO Authors (firstname, lastname)
+VALUES ('Dušan', 'Rychnovský');
+
+INSERT INTO Authors (firstname, lastname)
 VALUES ('Andrzej', 'Sapkowski');
 
 INSERT INTO Books (title, description, imageUrl)
@@ -15,6 +18,12 @@ VALUES (
 INSERT INTO Authorship (authorId, bookId)
 VALUES (
 	(SELECT authorId FROM Authors WHERE lastname = 'Sapkowski'),
+	(SELECT bookId FROM Books WHERE title = 'Zaklínač I: Poslední přání')
+);
+
+INSERT INTO Authorship (authorId, bookId)
+VALUES (
+	(SELECT authorId FROM Authors WHERE lastname = 'Rychnovský'),
 	(SELECT bookId FROM Books WHERE title = 'Zaklínač I: Poslední přání')
 );
 

@@ -1,12 +1,16 @@
 package cz.dusanrychnovsky.whattoreadnext.authors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.solr.core.query.QueryParameter;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 
@@ -29,7 +33,9 @@ public class AuthorsController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public Collection<AuthorLite> getBooks() {
-		return authorsRepository.find();
+	public Authors getAuthors(@RequestParam(value="ids[]") List<Integer> authorIds) {
+		
+		List<Author> authors = authorsRepository.find(authorIds);
+		return new Authors(authors);
 	}
 }

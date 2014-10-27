@@ -27,6 +27,7 @@ h1 {
 
 .book .author {
 	font-weight: bold;
+	line-height: 130%;
 }
 
 .clear {

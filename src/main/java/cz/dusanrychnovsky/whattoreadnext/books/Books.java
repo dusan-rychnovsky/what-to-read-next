@@ -7,14 +7,14 @@ import java.util.List;
 
 public class Books {
 
-	private final List<BookLite> books = new ArrayList<BookLite>();
+	private final List<Book> books = new ArrayList<Book>();
 	
 	/**
 	 * 
 	 * @param books
 	 */
-	public Books(Collection<BookLite> books) {
-		for (BookLite book : books) {
+	public Books(Collection<Book> books) {
+		for (Book book : books) {
 			this.books.add(book);
 		}
 	}
@@ -23,7 +23,7 @@ public class Books {
 	 * 
 	 * @return
 	 */
-	public List<BookLite> getBooks() {
+	public List<Book> getBooks() {
 		return Collections.unmodifiableList(books);
 	}
 }

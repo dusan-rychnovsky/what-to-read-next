@@ -47,24 +47,10 @@ public class BooksController {
 		
 		SearchCriteria criteria = new SearchCriteria(keywords);
 
-		Collection<BookLite> books = booksRepository.find(criteria);
+		Collection<Book> books = booksRepository.find(criteria);
 		return new Books(books);
 	}
 	
-    @RequestMapping(value="/{bookId}", method=GET)
-    public Book getBook(@PathVariable("bookId") final int bookId)
-    	throws BookNotFoundException {
-    	
-    	return booksRepository.find(bookId);
-    }
-    
-    @RequestMapping(method=POST, consumes="application/json")
-    public int addBook(@RequestBody final BookRequest request)
-    	throws AuthorNotFoundException {
-    	
-    	return booksRepository.add(request);
-    }
-    
     @RequestMapping(value="/{bookId}/opinion", method=PUT)
     public void setOpinion(
     	@PathVariable final int bookId, 
