@@ -8,6 +8,13 @@ App.BooksRoute = Ember.Route.extend({
 			refreshModel: true
 		}
 	},
+	setupController: function(controller, model) {
+		controller.set('model', model);
+		var keywords = model.query ? model.query.keywords : null;
+		if (keywords) {
+			controller.set('search', keywords.join(' '));
+		}
+	},
 	model: function(params) {
 		return this.store.find('book', params);
 	}

@@ -17,7 +17,7 @@ App.BooksController = Ember.ArrayController.extend(Ember.Evented, {
 	queryParams: ['keywords'],
 	keywords: [],
 	
-	search: "",
+	search: '',
 	
 	actions: {
 		doSearch: function() {
