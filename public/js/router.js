@@ -1,5 +1,6 @@
 App.Router.map(function() {
-	this.resource('books', { path: '/' });
+	this.resource('books', { path: '/' }),
+	this.resource('book', { path: '/:book_id' });
 });
 
 App.BooksRoute = Ember.Route.extend({
@@ -17,5 +18,11 @@ App.BooksRoute = Ember.Route.extend({
 	},
 	model: function(params) {
 		return this.store.find('book', params);
+	}
+});
+
+App.BookRoute = Ember.Route.extend({
+	model: function(params) {
+		return this.store.find('book', params.book_id);
 	}
 });

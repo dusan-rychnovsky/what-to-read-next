@@ -1,6 +1,7 @@
 package cz.dusanrychnovsky.whattoreadnext.books;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,6 +45,33 @@ public class BooksRepository extends Repository {
 		final Object[] params = searchQueryBuilder.buildParams();
 		
 		return getTemplate().query(query, params, bookExtractor);
+	}
+	
+	/**
+	 * 
+	 * @param bookId
+	 * @return
+	 * @throws BookNotFoundException
+	 */
+	public Book find(final int bookId) throws BookNotFoundException {
+		
+		Collection<Book> books = getTemplate().query(
+			"SELECT * FROM Books NATURAL JOIN Authorship WHERE bookId = ?",
+			new Object[] { bookId },
+			bookExtractor
+		);
+		
+		if (books.isEmpty()) {
+			throw new BookNotFoundException(bookId);
+		}
+		
+		if (books.size() > 1) {
+			throw new AssertionError(
+				"Query GET BOOK BY ID returned more than one row."
+			);
+		}
+		
+		return books.iterator().next();
 	}
 	
 	public void setOpinion(final int bookId, final Opinion opinion)

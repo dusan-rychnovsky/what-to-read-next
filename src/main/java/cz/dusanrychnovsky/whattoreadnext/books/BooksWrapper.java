@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class Books {
+public class BooksWrapper {
 
 	private final List<Book> books = new ArrayList<Book>();
 	
@@ -13,7 +13,7 @@ public class Books {
 	 * 
 	 * @param books
 	 */
-	public Books(Collection<Book> books) {
+	public BooksWrapper(Collection<Book> books) {
 		for (Book book : books) {
 			this.books.add(book);
 		}

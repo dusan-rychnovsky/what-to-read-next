@@ -6,11 +6,12 @@
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
+		<header id="header">
+			<h1>What To Read Next?</h1>
+		</header>
+		
 		<script type="text/x-handlebars" data-template-name="books">
-			<header id="header">
-				<h1>What To Read Next?</h1>
-			</header>
-			<section id="books-list">
+			<section id="content">
 				<div id="search-bar">
 					{{view Ember.TextField valueBinding="search" action="doSearch" autofocus="autofocus"}}
 					<button {{action "doSearch"}} type="button">Hledat</button>
@@ -18,8 +19,8 @@
 				<div class="clear"></div>
 				{{#each}}
 				<div class="book">
-					<img {{bind-attr src=imageUrl}} />
-					<div class="title">{{title}}</div>
+					<img {{bind-attr src=imageUrl}} class="small" />
+					<div class="title">{{#link-to 'book' this}}{{title}}{{/link-to}}</div>
 					<ul>
 						{{#each author in authors}}
 						<li class="author">
@@ -33,6 +34,29 @@
 					<div class="clear"></div>
 				</div>
 				{{/each}}
+			</section>
+		</script>
+		
+		<script type="text/x-handlebars" data-template-name="book">
+			<section id="content">
+				<div class="book">
+					<img {{bind-attr src=imageUrl}} />
+					{{#link-to 'books' classNames="float-right"}}< Zpět na seznam{{/link-to}}
+					<div id="description">
+						<div class="title">{{title}}</div>
+						<ul>
+							{{#each author in authors}}
+							<li class="author">
+								{{author.firstname}} {{author.lastname}}
+							</li>
+							{{/each}}
+						</ul>
+						<p>
+							{{description}}
+						</p>
+					</div>
+					<div class="clear"></div>
+				</div>
 			</section>
 		</script>
 		

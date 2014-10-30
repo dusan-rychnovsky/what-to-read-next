@@ -2,12 +2,20 @@ h1 {
 	text-align: center;
 }
 
-#books-list {
+p {
+	text-align: justify;
+}
+
+#content {
 	width: 800px;
 	margin: 0px auto;
 }
 
 #search-bar {
+	float: right;
+}
+
+.float-right {
 	float: right;
 }
 
@@ -18,10 +26,20 @@ h1 {
 }
 
 .book img {
-	width: 120px;
-	height: 180px;
+	width: 250px;
+	height: 350px;
 	margin-right: 10px;
 	float: left;
+}
+
+.book img.small {
+	width: 120px;
+	height: 180px;
+}
+
+#description {
+	float: left;
+	width: 517px;
 }
 
 .book .title {

@@ -6,12 +6,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 /**
  * Represents a book.
  * 
  * @author Dušan Rychnovský
  *
  */
+@JsonRootName("book")
 public class Book {
 
 	private final Integer id;

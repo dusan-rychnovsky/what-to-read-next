@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
@@ -38,7 +40,7 @@ public class BooksController {
 	}
 	
 	@RequestMapping(method=GET)
-	public Books getBooks(
+	public BooksWrapper getBooks(
 		@RequestParam(value="keywords[]", required=false) List<String> keywords) {
 		
 		if (keywords == null) {
@@ -48,7 +50,15 @@ public class BooksController {
 		SearchCriteria criteria = new SearchCriteria(keywords);
 
 		Collection<Book> books = booksRepository.find(criteria);
-		return new Books(books);
+		return new BooksWrapper(books);
+	}
+
+	@RequestMapping(value="/{bookId}", method=GET)
+	public BookWrapper getBook(@PathVariable final Integer bookId)
+		throws BookNotFoundException {
+		
+		Book book = booksRepository.find(bookId);
+		return new BookWrapper(book);
 	}
 	
     @RequestMapping(value="/{bookId}/opinion", method=PUT)
