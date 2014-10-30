@@ -48,6 +48,9 @@ public class SearchQueryBuilder {
 	 */
 	public String buildQuery() {
 		
+		// TODO: fix a bug in this query - when searching by author only returns
+		// the rows with that author
+		
 		StringBuilder result = new StringBuilder();
 		result.append("SELECT * ");
 		result.append("FROM Books NATURAL JOIN Authorship NATURAL JOIN Authors ");
