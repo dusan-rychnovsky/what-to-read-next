@@ -1,8 +1,8 @@
-WhatToReadNext.Router.map(function() {
+App.Router.map(function() {
 	this.resource('books', { path: '/' });
 });
 
-WhatToReadNext.BooksRoute = Ember.Route.extend({
+App.BooksRoute = Ember.Route.extend({
 	queryParams: {
 		keywords: {
 			refreshModel: true
