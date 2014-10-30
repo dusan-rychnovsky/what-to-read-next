@@ -3,7 +3,12 @@ WhatToReadNext.Router.map(function() {
 });
 
 WhatToReadNext.BooksRoute = Ember.Route.extend({
-	model: function() {
-		return this.store.find('book');
+	queryParams: {
+		keywords: {
+			refreshModel: true
+		}
+	},
+	model: function(params) {
+		return this.store.find('book', params);
 	}
 });

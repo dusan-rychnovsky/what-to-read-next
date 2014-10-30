@@ -7,6 +7,10 @@ h1 {
 	margin: 0px auto;
 }
 
+#search-bar {
+	float: right;
+}
+
 .book {
 	border: 1px black solid;
 	padding: 10px;

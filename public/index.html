@@ -11,6 +11,11 @@
 				<h1>What To Read Next?</h1>
 			</header>
 			<section id="books-list">
+				<div id="search-bar">
+					{{view Ember.TextField valueBinding="search" action="doSearch" autofocus="autofocus"}}
+					<button {{action "doSearch"}} type="button">Hledat</button>
+				</div>
+				<div class="clear"></div>
 				{{#each}}
 				<div class="book">
 					<img {{bind-attr src=imageUrl}} />

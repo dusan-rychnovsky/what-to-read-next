@@ -39,7 +39,7 @@ public class BooksController {
 	
 	@RequestMapping(method=GET)
 	public Books getBooks(
-		@RequestParam(required = false) List<String> keywords) {
+		@RequestParam(value="keywords[]", required=false) List<String> keywords) {
 		
 		if (keywords == null) {
 			keywords = new ArrayList<String>();
