@@ -3,7 +3,7 @@ h1 {
 }
 
 #books-list {
-	width: 1000px;
+	width: 800px;
 	margin: 0px auto;
 }
 
@@ -18,8 +18,8 @@ h1 {
 }
 
 .book img {
-	width: 150px;
-	height: 250px;
+	width: 120px;
+	height: 180px;
 	margin-right: 10px;
 	float: left;
 }
